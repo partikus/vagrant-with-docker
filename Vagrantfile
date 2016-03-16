@@ -14,18 +14,18 @@ Vagrant.configure("2") do |config|
     end
 
     config.vm.provision "shell",
-            inline: "
-              sudo apt-get --yes install software-properties-common;
-              sudo apt-get --yes install python-pip;
+        inline: "
+          sudo apt-get --yes install software-properties-common;
+          sudo apt-get --yes install python-pip;
+          if ! type ansible-playbook; then
               sudo apt-add-repository --yes ppa:ansible/ansible;
               sudo apt-get --yes update ;
-              sudo apt-get --yes install ansible"
-    config.vm.provision "shell",
-          inline: "
-              cp -R /vagrant ~/;
-              chmod -x ~/vagrant/hosts;
-              chmod -x ~/vagrant/provision.yml;
-              cd ~/vagrant;
-              ansible-playbook -i hosts provision.yml;
-              "
+              sudo apt-get --yes install ansible;
+          fi
+          cp -R /vagrant ~/;
+          chmod -x ~/vagrant/hosts;
+          chmod -x ~/vagrant/provision.yml;
+          cd ~/vagrant;
+          ansible-playbook -i hosts provision.yml;
+          "
 end
