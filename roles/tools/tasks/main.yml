@@ -1,0 +1,14 @@
+---
+- name: Update apt
+  apt: update_cache=yes
+
+- name: Install regular tools
+  apt: name={{ item }} state=latest
+  with_items:
+    - python-pip
+    - git-core
+    - curl
+    - mc
+    - acl
+    - htop
+    - zip
