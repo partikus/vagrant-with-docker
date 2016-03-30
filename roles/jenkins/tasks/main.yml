@@ -19,15 +19,15 @@
 
 - name: Update plugins list
   shell: "curl  -L http://updates.jenkins-ci.org/update-center.json | sed '1d;$d' | curl -X POST -H 'Accept: application/json' -d @- http://localhost:8080/updateCenter/byId/default/postBack"
-#
-#- name: List plugins
-#  shell: java -jar /usr/share/jenkins/jenkins-cli.jar -s http://localhost:8080 list-plugins | cut -f 1 -d ' '
-#  when: jenkins_plugins is defined
-#  register: plugins_installed
-#
-#- name: Install jenkins's plugins required for above libs
-#  shell: java -jar /usr/share/jenkins/jenkins-cli.jar -s http://localhost:8080 install-plugin {{ item }}
-#  when: plugins_installed.changed and plugins_installed.stdout.find('{{ item }}') == -1
-#  with_items: jenkins_plugins
-#  ignore_errors: yes
-#  notify: restart jenkins
+
+- name: List plugins
+  shell: java -jar /usr/share/jenkins/jenkins-cli.jar -s http://localhost:8080 list-plugins | cut -f 1 -d ' '
+  when: jenkins_plugins is defined
+  register: plugins_installed
+
+- name: Install jenkins's plugins required for above libs
+  shell: java -jar /usr/share/jenkins/jenkins-cli.jar -s http://localhost:8080 install-plugin {{ item }}
+  when: plugins_installed.changed and plugins_installed.stdout.find('{{ item }}') == -1
+  with_items: jenkins_plugins
+  ignore_errors: yes
+  notify: restart jenkins

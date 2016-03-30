@@ -13,8 +13,9 @@
 
 - name: Add vagrant user to docker group
   shell: usermod -aG docker vagrant
-  become: yes
+
+- name: Add jenkins user to docker group
+  shell: usermod -aG docker jenkins
 
 - name: Install docker-compose
   shell: 'pip install docker-compose'
-  become: yes
