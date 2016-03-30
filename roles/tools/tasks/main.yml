@@ -1,4 +1,7 @@
 ---
+- name: Add brackets.io repository
+  apt_repository: repo='ppa:webupd8team/brackets'
+
 - name: Update apt
   apt: update_cache=yes
 
@@ -12,3 +15,5 @@
     - acl
     - htop
     - zip
+    - lxde
+    - brackets

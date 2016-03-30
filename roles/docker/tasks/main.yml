@@ -12,7 +12,9 @@
   apt: name=docker-engine
 
 - name: Add vagrant user to docker group
-  shell: sudo usermod -aG docker vagrant
+  shell: usermod -aG docker vagrant
+  become: yes
 
 - name: Install docker-compose
-  shell: 'sudo pip install docker-compose'
+  shell: 'pip install docker-compose'
+  become: yes

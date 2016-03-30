@@ -3,14 +3,15 @@
 
 Vagrant.configure("2") do |config|
     config.vm.box = "ubuntu/trusty64"
-    config.vm.network :private_network, ip: "10.0.0.200"
+    config.vm.network :private_network, ip: "10.0.0.210"
     config.ssh.forward_agent = true
     config.vm.provider :virtualbox do |p|
         p.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-        p.customize ["modifyvm", :id, "--memory", 1024]
+        p.customize ["modifyvm", :id, "--memory", 2048]
         p.customize ["modifyvm", :id, "--name", "docker"]
         p.customize ["modifyvm", :id, "--cpuexecutioncap", "80"]
         p.cpus = 2
+        p.gui = true
     end
 
     config.vm.provision "shell",
